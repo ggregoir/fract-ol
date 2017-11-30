@@ -6,13 +6,13 @@
 #    By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/11 12:37:29 by ggregoir          #+#    #+#              #
-#    Updated: 2017/03/13 15:56:40 by ggregoir         ###   ########.fr        #
+#    Updated: 2017/11/30 13:33:47 by ggregoir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= fractol
 
-SRC		= src/main.c          \
+SRC		= src/main.c src/errors.c src/utils.c \
 		  
 
 OBJ		= $(patsubst src/%.c,obj/%.o,$(SRC))
