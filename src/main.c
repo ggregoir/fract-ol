@@ -6,7 +6,7 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/27 12:30:36 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/11/30 17:12:05 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/12/10 15:47:15 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	fractal(t_e *e)
 
 	x = 0;
 	y = 0;
-	
+		printf("pos x = %f y = %f\n",e->posx, e->posy );
 	while (row < e->w_y)
 	{
 		col = 0;
@@ -68,7 +68,7 @@ void	fractal(t_e *e)
 			{
 				//printf("in col = %d row = %d x = %f, y = %f a->i = %f a->r = %f\n",col, row, x, y, a.i, a.r);
 				xnew = x*x - y*y + a.r;
-				y = 2*x*y + a.i;
+				y = 2*x*y + a.i ;
 				x = xnew;
 				iter++;
 				//printf("after iter col = %d row = %d x = %f, y = %f a->i = %f a->r = %f\n",col, row, x, y, a.i, a.r);
@@ -127,8 +127,8 @@ int		key_hook(int keycode, t_e *e)
 
 	if (keycode == 1)
 	{
-		if (e->posy < 4)
-			e->posy = e->posy + 0.02;
+		if (e->posy)
+			e->posy = e->posy + 0.02 ;
 		ft_black_screen(e);
 		fractal(e);
 		mlx_put_image_to_window(e->mlx_ptr, e->mlx_win, e->img_ptr, 0, 0);
@@ -145,7 +145,7 @@ int		key_hook(int keycode, t_e *e)
 
 	if (keycode == 2)
 	{
-		if (e->posx < 4)
+		if (e->posx)
 			e->posx = e->posx + 0.02;
 		ft_black_screen(e);
 		fractal(e);
@@ -255,7 +255,7 @@ int		main(int argc, char **argv)
 			return (EXIT_FAILURE);
 		e.data = (int*)mlx_get_data_addr(e.img_ptr, &e.bpp, &e.sizeline, &e.endian);
 		ft_putstr(argv[1]);
-		fractal(&e);
+		opencl(&e);
 		mlx_put_image_to_window(e.mlx_ptr, e.mlx_win, e.img_ptr, 0, 0);
 		mlx_hook(e.mlx_win, 2, 0, key_hook, &e);
 		mlx_loop(e.mlx_ptr);

@@ -6,13 +6,13 @@
 #    By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/11 12:37:29 by ggregoir          #+#    #+#              #
-#    Updated: 2017/11/30 13:33:47 by ggregoir         ###   ########.fr        #
+#    Updated: 2017/12/10 12:24:32 by ggregoir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= fractol
 
-SRC		= src/main.c src/errors.c src/utils.c \
+SRC		= src/main.c src/errors.c src/utils.c src/opencl.c src/oclerror.c\
 		  
 
 OBJ		= $(patsubst src/%.c,obj/%.o,$(SRC))
@@ -22,7 +22,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	make -C libft/
-	gcc -Wall -Wextra -Werror -L libft/ -lft -g -L/usr/local/lib -lmlx -framework OpenGL -framework AppKit $(SRC) -o $(NAME)
+	gcc -Wall -Wextra -Werror -L libft/ -lft -g -L/usr/local/lib -lmlx -framework OpenGL -framework OpenCL -framework AppKit $(SRC) -o $(NAME)
 	@echo '\033[92m[ ✔ ] \033[0m' "Fract'ol created " '\033[92m[ ✔ ] \n\033[0m'
 
 obj/%.o: src/%.c

@@ -6,7 +6,7 @@
 /*   By: ggregoir <ggregoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 12:42:52 by ggregoir          #+#    #+#             */
-/*   Updated: 2017/11/30 16:49:56 by ggregoir         ###   ########.fr       */
+/*   Updated: 2017/12/10 12:49:08 by ggregoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # include "..//libft/includes/libft.h"
 # include <mlx.h>
 # include <math.h>
+#include "OpenCL/opencl.h"
+#include <stdio.h>
 
 # define XRED 0xFF0000
 # define XBLUE 0x0000FF
@@ -34,12 +36,31 @@
 # define XOLIVEGREEN 0x808000
 # define XPURPLE 0x800080
 
+# define MAX_DEVICE				16
+
 typedef struct	s_complex
 {
 	double		r;
 	double		i;
 
 }				t_complex;
+
+typedef struct			s_opencl
+{
+	char				*kernel_source;
+	cl_uint				num_devices;
+	cl_kernel			kernel;
+	cl_command_queue	cmd_queue[16];
+	cl_context			context;
+	cl_mem				image;
+	cl_device_id		devices[16];
+	cl_int				err;
+	cl_uint				width;
+	cl_uint				height;
+	size_t				device_work_size[2];
+	size_t				device_work_offset[2];
+	size_t				offset;
+}						t_opencl;
 
 typedef struct	s_e
 {
@@ -65,6 +86,9 @@ void		map_error(void);
 void		usage_error(void);
 void		arg_error(void);
 t_complex	complex(double i, double r);
+int			opencl(t_e *e);
+void		get_cl_error(char *debug, cl_int err);
+void		print_cl_infos(cl_context context);
 
 
 #endif
